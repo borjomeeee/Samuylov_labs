@@ -14,48 +14,49 @@
     </div>
     <div class="uk-container uk-flex uk-flex-center window">
         <div class="uk-width-1-2 uk-grid">
-            <div class="uk-heading-small uk-width-1-1 window-head">Бинарный поиск</div>
-            <div class="uk-card uk-card-body window_col no-optimal_bin">
+            <div class="uk-heading-small uk-width-1-1   ">Хеширование</div>
+
+            <div class="uk-card uk-card-body window__form no-optimal_bin">
                 <label for="#key">Ключ</label>
                 <input id="key" type="number" class="uk-input key">
 
-                <div class="uk-margin-top window-row no-optimal_bin">
-                    <span class="uk-card-title no-optimal_bin-head">Неоптимальный бинарный</span>
+                <div class="uk-margin-top window__search-block">
+                    <span class="uk-card-title search-block__name">Неоптимальный бинарный</span>
 
-                    <div class="no-optimal_bin-inputs">
+                    <div class="search-block__form">
                         <label for="#no-optimal_bin-time">Время</label>
-                        <input id="no-optimal_bin-time" type="text" class="uk-input time">
+                        <input id="no-optimal_bin-time" type="text" class="uk-input form__time">
             
                         <label for="#no-optimal_bin-index">Индекс</label>
-                        <input id="no-optimal_bin-index" type="text" class="uk-input index">
+                        <input id="no-optimal_bin-index" type="text" class="uk-input form__index">
                     </div>
                 </div>
 
-                <div class="uk-margin-top window-row optimal_bin">
-                    <span class="uk-card-title optimal_bin-head">Оптимальный бинарный</span>
+                <div class="uk-margin-top window__search-block">
+                    <span class="uk-card-title search-block__name">Оптимальный бинарный</span>
 
-                    <div class="optimal_bin-inputs">
+                    <div class="search-block__form">
                         <label for="#optimal_bin-time">Время</label>
-                        <input id="optimal_bin-time" type="text" class="uk-input time">
+                        <input id="optimal_bin-time" type="text" class="uk-input form__time">
             
                         <label for="#optimal_bin-index">Индекс</label>
-                        <input id="optimal_bin-index" type="text" class="uk-input index">
+                        <input id="optimal_bin-index" type="text" class="uk-input form__index">
                     </div>
                 </div>
 
-                <div class="uk-margin-top window-row optimal_serial">
-                    <span class="uk-card-title optimal_serial-head">Оптимальный последовательный</span>
+                <div class="uk-margin-top window__search-block">
+                    <span class="uk-card-title search-block__name">Оптимальный последовательный</span>
 
-                    <div class="optimal_serial-inputs">
+                    <div class="search-block__form">
                         <label for="#optimal_serial-time">Время</label>
-                        <input id="optimal_serial-time" type="text" class="uk-input time">
+                        <input id="optimal_serial-time" type="text" class="uk-input form__time">
             
                         <label for="#optimal_serial-index">Индекс</label>
-                        <input id="optimal_serial-index" type="text" class="uk-input index">
+                        <input id="optimal_serial-index" type="text" class="uk-input form__index">
                     </div>
                 </div>
 
-                <button id="submit" class="uk-button uk-button-default uk-margin-top submit">Отправить</button>
+                <button id="submit" class="uk-button uk-button-default uk-margin-top window__submit">Вычислить</button>
             </div>
         </div>
     </div>
