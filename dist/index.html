@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/css/uikit.min.css" />
+    <link rel="stylesheet" href="style/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="preloader" class="preloader show uk-container uk-flex uk-flex-center uk-flex-middle uk-width-1-1">
+        <span class="spinner" uk-spinner="ratio: 4.5"></span>
+    </div>
+    <div class="uk-container uk-flex uk-flex-center window">
+        <div class="uk-width-1-2 uk-grid">
+            <div class="uk-heading-small uk-width-1-1 window-head">Бинарный поиск</div>
+            <div class="uk-card uk-card-body window_col no-optimal_bin">
+                <label for="#key">Ключ</label>
+                <input id="key" type="number" class="uk-input key">
+
+                <div class="uk-margin-top window-row no-optimal_bin">
+                    <span class="uk-card-title no-optimal_bin-head">Неоптимальный бинарный</span>
+
+                    <div class="no-optimal_bin-inputs">
+                        <label for="#no-optimal_bin-time">Время</label>
+                        <input id="no-optimal_bin-time" type="text" class="uk-input time">
+            
+                        <label for="#no-optimal_bin-index">Индекс</label>
+                        <input id="no-optimal_bin-index" type="text" class="uk-input index">
+                    </div>
+                </div>
+
+                <div class="uk-margin-top window-row optimal_bin">
+                    <span class="uk-card-title optimal_bin-head">Оптимальный бинарный</span>
+
+                    <div class="optimal_bin-inputs">
+                        <label for="#optimal_bin-time">Время</label>
+                        <input id="optimal_bin-time" type="text" class="uk-input time">
+            
+                        <label for="#optimal_bin-index">Индекс</label>
+                        <input id="optimal_bin-index" type="text" class="uk-input index">
+                    </div>
+                </div>
+
+                <div class="uk-margin-top window-row optimal_serial">
+                    <span class="uk-card-title optimal_serial-head">Оптимальный последовательный</span>
+
+                    <div class="optimal_serial-inputs">
+                        <label for="#optimal_serial-time">Время</label>
+                        <input id="optimal_serial-time" type="text" class="uk-input time">
+            
+                        <label for="#optimal_serial-index">Индекс</label>
+                        <input id="optimal_serial-index" type="text" class="uk-input index">
+                    </div>
+                </div>
+
+                <button id="submit" class="uk-button uk-button-default uk-margin-top submit">Отправить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/bundle.js"></script>
+</body>
+</html>

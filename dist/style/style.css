@@ -1,0 +1,21 @@
+.preloader {
+    position: absolute;
+    height: 100vh;
+    background-color: #fff;
+    z-index: 100;
+    transition: all 2s;
+}
+
+.window-head {
+    text-align: center;
+}
+
+@keyframes hide {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        display: none;
+    }
+}
