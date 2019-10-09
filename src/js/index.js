@@ -29,20 +29,14 @@ function searchWithAlghoritm(arr, key, callback, count = COUNT_SEARCH) {
 
     return showOutput(outputElement, diffTime);
 };
-
 $(() => {
     function main() {   
-        $('#submit').on('click', () => {
-            let key = $('#key').val();
-    
-            searchWithAlghoritm(sortArray, key, Alghoritms.optimaLSerialAlghoritm, COUNT_SEARCH / 100),
-            searchWithAlghoritm(sortArray, key, Alghoritms.optimalBinAlghoritm),
-            searchWithAlghoritm(sortArray, key, Alghoritms.noOptimalBinAlghoritm)
-        })
+        let divisionArr = Alghoritms.divisionMethod(array);
+        console.log(divisionArr.collisions);
     };
 
-    $('#key').val(MyArray.getRandom());
-    const sortArray = MyArray.createArray().sort((first, second) => first - second);
+    $('#nuum').val(0);
+    const array = MyArray.createArray();
 
     $('#preloader').css('opacity', 0);
     setTimeout(() => { $('#preloader').css('display', 'none') }, 2000);

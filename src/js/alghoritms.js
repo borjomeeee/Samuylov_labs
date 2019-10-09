@@ -1,7 +1,6 @@
 class Path {
-    constructor(impT, inpI) {
-        this.inputTime = impT;
-        this.inputIndx = inpI;
+    constructor(imp) {
+        this.inputValue = imp;
     }
 }
 
@@ -12,68 +11,68 @@ class Element {
     }
 }
 
-const optimalSerialPath = new Path($('#optimal_serial-time'), $('#optimal_serial-index'));
-const optimalBinPath = new Path($('#optimal_bin-time'), $('#optimal_bin-index'));
-const noOptimalBinPath = new Path($('#no-optimal_bin-time'), $('#no-optimal_bin-index'));
+const divisionMethodPath = new Path($('#division-method'));
+const abcpowMethodPath = new Path($('#optimal_bin-time'));
+const furlMethodPath = new Path($('#no-optimal_bin-time'));
+const multiplyMethodPath = new Path($('#optimal_serial-time'));
+const openAdressMethodPath = new Path($('#optimal_bin-time'));
+const chainMethodPath = new Path($('#no-optimal_bin-time'));
 
-function optimaLSerialAlghoritm(arr, key) {
-    arr.push(key + 1);
+function divisionMethod(arr) {
+    let newArr = [];
+    let numCollisions = 0;
 
-    let i = 0;    
-    while(key > arr[i])
-        i++;
+    let collisionArr = [];
 
-    arr.pop();
-    if(key == arr[i])
-        return new Element(optimalSerialPath, i);
+    arr.forEach(element => {
+        let adress = (element / 997) + 1;
 
-    return new Element(optimalSerialPath, -1);
-};
+        newArr.some(hash => {
+            if(hash.adress == adress) {
+                collisionArr.push(element);
 
-function optimalBinAlghoritm(arr, key) {
-    let L = 0;
-    let R = arr.length - 1;
+                numCollisions++;
+                return true;
+            }
+        });
 
-    let i;
-    while(R > L) {
-        i = Math.floor((L + R) / 2);
+        newArr.push({
+            adress: adress,
+            value: element
+        });
+    });
 
-        if(key <= arr[i]) {
-            R = i;
-        } else {
-            L = ++i;
-        }
-    }
+    return {
+        hashArr: newArr,
+        collisions: numCollisions
+    };
+}
 
-    if(key == arr[R])
-        return new Element(optimalBinPath, R);
+function abcpowMethod(arr) {
+    return new Element(abcpowMethodPath, -1);
+}
 
-    
-    return new Element(optimalBinPath, -1);
-};
+function furlMethod(arr) {
+    return new Element(furlMethodPath, -1);
+}
 
-function noOptimalBinAlghoritm(arr, key) {
-    let L = 0;
-    let R = arr.length - 1;
+function multiplyMethod(arr) {
+    return new Element(multiplyMethodPath, -1);
+}
 
-    let i;
-    while(R >= L) {
-        i = Math.floor((L + R) / 2);
+function openAdressMethod(arr) {
+    return new Element(openAdressMethodPath, -1);
+}   
 
-        if(key == arr[i]) {
-            return new Element(noOptimalBinPath, i);
-        } else if(key < arr[i]) {
-            R = i - 1;
-        } else {
-            L = i + 1;
-        }
-    }
-
-    return new Element(noOptimalBinPath, -1);
-};
+function chainMethod(arr) {
+    return [divisionMethod(arr), abcpowMethod(arr), furlMethod(arr), multiplyMethod(arr)];
+}
 
 module.exports = {
-    optimaLSerialAlghoritm: optimaLSerialAlghoritm,
-    optimalBinAlghoritm: optimalBinAlghoritm,
-    noOptimalBinAlghoritm: noOptimalBinAlghoritm
+    divisionMethod: divisionMethod,
+    abcpowMethod: abcpowMethod,
+    furlMethod: furlMethod,
+    multiplyMethod: multiplyMethod,
+    openAdressMethod: openAdressMethod,
+    chainMethod: chainMethod
 }
