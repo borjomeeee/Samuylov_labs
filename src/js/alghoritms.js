@@ -1,78 +1,75 @@
-class Path {
-    constructor(imp) {
-        this.inputValue = imp;
-    }
-}
-
-class Element {
-    constructor(path, indx) {
+class Method {
+    constructor(path, method) {
         this.path = path;
-        this.index = indx;
+        this.method = method;
     }
 }
 
-const divisionMethodPath = new Path($('#division-method'));
-const abcpowMethodPath = new Path($('#optimal_bin-time'));
-const furlMethodPath = new Path($('#no-optimal_bin-time'));
-const multiplyMethodPath = new Path($('#optimal_serial-time'));
-const openAdressMethodPath = new Path($('#optimal_bin-time'));
-const chainMethodPath = new Path($('#no-optimal_bin-time'));
+const divisionMethodPath = $('#division-method');
+const abcpowMethodPath = $('#optimal_bin-time');
+const furlMethodPath = $('#no-optimal_bin-time');
+const multiplyMethodPath = $('#optimal_serial-time');
+const openAdressMethodPath = $('#optimal_bin-time');
+const chainMethodPath = $('#no-optimal_bin-time');
 
 function divisionMethod(arr) {
     let newArr = [];
-    let numCollisions = 0;
-
     let collisionArr = [];
 
     arr.forEach(element => {
         let adress = (element / 997) + 1;
 
-        newArr.some(hash => {
-            if(hash.adress == adress) {
-                collisionArr.push(element);
+        if(newArr.includes(adress))
+            collisionArr.push(element);
 
-                numCollisions++;
-                return true;
-            }
-        });
-
-        newArr.push({
-            adress: adress,
-            value: element
-        });
+        newArr.push(adress);
     });
 
-    return {
-        hashArr: newArr,
-        collisions: numCollisions
-    };
+    return collisionArr;
 }
 
 function abcpowMethod(arr) {
-    return new Element(abcpowMethodPath, -1);
+    let newArr = [];
+    let collisionArr = [];
+
+    arr.forEach(element => {
+        let num = String(element ** 2);
+        let right = Math.floor(num.length / 2) - 2;
+
+        let adress = Number(num.substr(right, 4));
+
+        if(newArr.includes(adress)) {
+            collisionArr.push(element);
+            console.log(element ** 2, adress);
+        }
+
+        newArr.push(adress);
+    });
+
+    return collisionArr;
 }
 
 function furlMethod(arr) {
-    return new Element(furlMethodPath, -1);
+    return [];
 }
 
 function multiplyMethod(arr) {
-    return new Element(multiplyMethodPath, -1);
+    return [];
 }
 
 function openAdressMethod(arr) {
-    return new Element(openAdressMethodPath, -1);
+    return [];
 }   
 
 function chainMethod(arr) {
-    return [divisionMethod(arr), abcpowMethod(arr), furlMethod(arr), multiplyMethod(arr)];
+    return [];
 }
 
 module.exports = {
-    divisionMethod: divisionMethod,
-    abcpowMethod: abcpowMethod,
-    furlMethod: furlMethod,
-    multiplyMethod: multiplyMethod,
-    openAdressMethod: openAdressMethod,
-    chainMethod: chainMethod
+    divisionMethod: new Method(divisionMethodPath, divisionMethod),
+    abcpowMethod: new Method(abcpowMethodPath, abcpowMethod),
+    // furlMethod: new Method(furlMethodPath, furlMethod),
+    // multiplyMethod: new Method(multiplyMethodPath, multiplyMethod),
+    // openAdressMethod: new Method(openAdressMethodPath, openAdressMethod),
+    // chainMethod: new Method(chainMethodPath, chainMethod)
 }

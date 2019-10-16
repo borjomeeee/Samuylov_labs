@@ -16,5 +16,6 @@ function createArray() {
 };
 
 module.exports = {
-    createArray: createArray
+    createArray: createArray,
+    maxNum: MAX_NUM
  }

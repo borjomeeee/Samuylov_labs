@@ -4,42 +4,68 @@ global.$ = $;
 import 'uikit/dist/js/uikit';
 
 const Alghoritms = require('./alghoritms');
+const methods = Object.keys(Alghoritms).reduce((acc, val) => {
+    acc.push({
+        count: 0,
+        methodName: val
+    });
+
+    return acc;
+}, []);
+
 const MyArray = require('./array');
+const MAX_NUM_EQUALS = 10000;
 
-const COUNT_SEARCH = 40000;
+const numEquals = $('#num');
 
-function showOutput(elem, time) {
-    if(elem.index < 0)
-        elem.path.inputIndx.val('Нет');
-    else    
-        elem.path.inputIndx.val(elem.index);
-
-    elem.path.inputTime.val(time);
+function changeNum() {
+    if(numEquals.val() < 0) {
+        numEquals.val(0);
+    } else if(numEquals.val() > MAX_NUM_EQUALS) {
+        numEquals.val(MAX_NUM_EQUALS);
+    }
 }
 
-function searchWithAlghoritm(arr, key, callback, count = COUNT_SEARCH) {
-    let outputElement;
+function checkCollisions() {   
+    function checkMethods() {
+        const array = MyArray.createArray();
+    
+        let min = MyArray.maxNum + 1, index = -1;
+        methods.forEach((el, ind) => {
+            let res = Alghoritms[el.methodName].method(array);
+    
+            if(res.length < min) {
+                min = res.length;
+                index = ind;
+            }
 
-    let start = new Date().getTime();
+            // console.log(res.length);
+        });
+    
+        if(index != -1)
+            methods[index].count++;
+    }
 
-    for(let i = 0; i < count; i++)
-        outputElement = callback(arr, key);
+    const num = numEquals.val();
 
-    let diffTime = count == COUNT_SEARCH ? new Date().getTime() - start : (new Date().getTime() - start) * 100;
+    for(let i = 0; i < num; i++)
+        checkMethods();
 
-    return showOutput(outputElement, diffTime);
+    console.log(methods);
 };
-$(() => {
-    function main() {   
-        let divisionArr = Alghoritms.divisionMethod(array);
-        console.log(divisionArr.collisions);
-    };
 
-    $('#nuum').val(0);
-    const array = MyArray.createArray();
+function timeHash() {
+
+}
+
+$(() => {
+    $('#num').val(0);
 
     $('#preloader').css('opacity', 0);
     setTimeout(() => { $('#preloader').css('display', 'none') }, 2000);
-    
-    main();
+
+    $('#num').on('change', changeNum);
+
+    $('#submit-collisions').on('click', checkCollisions);
+    $('#submit-equal').on('click', timeHash);
 });
