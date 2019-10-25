@@ -1,75 +1,147 @@
-class Method {
-    constructor(path, method) {
-        this.path = path;
-        this.method = method;
-    }
-}
-
-const divisionMethodPath = $('#division-method');
-const abcpowMethodPath = $('#optimal_bin-time');
-const furlMethodPath = $('#no-optimal_bin-time');
-const multiplyMethodPath = $('#optimal_serial-time');
-const openAdressMethodPath = $('#optimal_bin-time');
-const chainMethodPath = $('#no-optimal_bin-time');
-
-function divisionMethod(arr) {
-    let newArr = [];
-    let collisionArr = [];
+function hashGenerate(arr, size, cb) {
+    let values = [];
 
     arr.forEach(element => {
-        let adress = (element / 997) + 1;
+        let adress = cb(element, size);
 
-        if(newArr.includes(adress))
-            collisionArr.push(element);
-
-        newArr.push(adress);
+        values.push({ adress, element });
     });
 
-    return collisionArr;
+    return values;
 }
 
-function abcpowMethod(arr) {
-    let newArr = [];
-    let collisionArr = [];
+function divisionMethod(el, size) {
+    return Math.floor(el % ((10 ** size) + 1)) + 1;
+}
 
-    arr.forEach(element => {
-        let num = String(element ** 2);
-        let right = Math.floor(num.length / 2) - 2;
+function abcpowMethod(el, size) {
+    const numRes = size;
 
-        let adress = Number(num.substr(right, 4));
+    let num = el ** 2;
+    let numLength = Math.floor(Math.log10(num)) + 1;
 
-        if(newArr.includes(adress)) {
-            collisionArr.push(element);
-            console.log(element ** 2, adress);
+    if(numLength <= numRes) return num;
+
+    let startNum = Math.floor((numLength - numRes) / 2);
+    let resAdress = Math.floor(num % (10 ** (numLength - startNum)));
+
+    let resAdressLength = Math.floor(Math.log10(resAdress)) + 1;
+    resAdress /= 10 ** (resAdressLength - numRes);
+
+    return Math.floor(resAdress);
+}
+
+function furlMethod(el, size) {
+
+    let resAdress = 0;
+    let value = el;
+
+    let div = 10 ** size;
+
+    while (value != 0) {
+        resAdress += value % div;
+
+        value = Math.floor(value / div);
+    };
+
+    return resAdress % div;
+}
+
+function multiplyMethod(el, size) {
+    let length = size;
+
+    const A = 0.6180339887;
+    const m = 10 ** length;
+
+    let resAdress = A * el;
+
+    return Math.floor((resAdress % 1) * m);
+}
+
+function openAdressCreate(arr, size, cb) {
+    let hashArr = [];
+
+    arr.forEach(elem => {
+        let adress = cb(elem, size);
+
+        if(hashArr[adress] != undefined) {
+            while(++adress != arr.length) {
+                if(hashArr[adress]){
+
+                }
+                else {
+                    hashArr.push(elem);
+                    break;
+                }
+            }
+        } else {
+            hashArr[adress] = elem;
         }
-
-        newArr.push(adress);
     });
 
-    return collisionArr;
+    return hashArr;
 }
 
-function furlMethod(arr) {
-    return [];
+function chainMethodCreate(arr, size, cb) {
+    let hashArr = [];
+
+    arr.forEach(elem => {
+        let adress = cb(elem, size);
+
+        if(hashArr[adress]) {
+            hashArr[adress].push(elem);
+        } else {
+            hashArr[adress] = [];
+        }
+    });
+
+    return hashArr;
 }
 
-function multiplyMethod(arr) {
-    return [];
+function searchElements(arr, size, best, hashArr, cb) {
+    let startDate = new Date().getTime();
+
+    cb(arr, size, hashArr, best);
+
+    let endDate = new Date().getTime();
+
+    return endDate - startDate;
 }
 
-function openAdressMethod(arr) {
-    return [];
-}   
+function openAdressSearch(arr, size, hashArr, cb) {
+    arr.forEach(elem => {
+        let adress = cb(elem, size);
 
-function chainMethod(arr) {
-    return [];
+        if(hashArr[adress] != elem) {
+            while(adress != hashArr.length) {
+                adress++;
+            }
+        }
+    });
+}
+
+function chainMethodSearch(arr, size, hashArr, cb) {
+    arr.forEach(elem => {
+        let adress = cb(elem, size);
+
+        let values = hashArr[adress];
+        values.some(val => val == elem);
+    });
 }
 
 module.exports = {
-    divisionMethod: new Method(divisionMethodPath, divisionMethod),
-    abcpowMethod: new Method(abcpowMethodPath, abcpowMethod),
-    // furlMethod: new Method(furlMethodPath, furlMethod),
-    // multiplyMethod: new Method(multiplyMethodPath, multiplyMethod),
-    // openAdressMethod: new Method(openAdressMethodPath, openAdressMethod),
-    // chainMethod: new Method(chainMethodPath, chainMethod)
+    divisionMethod: divisionMethod,
+    abcpowMethod: abcpowMethod,
+    furlMethod: furlMethod,
+    multiplyMethod: multiplyMethod,
+
+    hashGenerate: hashGenerate,
+
+    openAdressSearch: openAdressSearch,
+    chainMethodSearch: chainMethodSearch,
+
+    openAdressCreate: openAdressCreate,
+    chainMethodCreate: chainMethodCreate,
+
+    searchElements: searchElements
 }

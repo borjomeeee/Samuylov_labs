@@ -7,19 +7,24 @@
     height: 100vh;
     background-color: #fff;
     z-index: 100;
-    transition: all 2s;
+    transition: all 1s;
 }
 
 .window__name {
     text-align: center;
 }
 
+.hidden {
+    opacity: 0;
+
+    animation: hide 0s 1s forwards;
+}
+
 @keyframes hide {
-    from {
-        opacity: 1;
+    0% {
+        z-index: -1;
     }
-    to {
-        opacity: 0;
-        display: none;
+    100% {
+        z-index: -1;
     }
 }
