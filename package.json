@@ -14,7 +14,11 @@
     "uikit": "^3.2.0",
     "webpack": "^4.39.3",
     "webpack-cli": "^3.3.8",
+<<<<<<< HEAD
     "webpack-dev-server": "^3.8.2"
+=======
+    "webpack-dev-server": "^3.9.0"
+>>>>>>> master
   },
   "dependencies": {
     "jquery": "^3.4.1"
