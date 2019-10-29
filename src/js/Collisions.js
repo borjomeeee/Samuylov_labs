@@ -18,7 +18,7 @@ function getCountEqualsHash(arr) {
     return count;
 }
 
-function getCountCollisions(elements, search, size) {
+function getCountCollisions(elements, search) {
     let count = search.val();
 
     for(let i = 0; i < count; i++) {
