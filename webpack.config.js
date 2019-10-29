@@ -7,5 +7,11 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist/js'),
         filename: './[name].js',
+    },
+    devServer: {
+        open: true,
+        port: '8081',
+        overlay: true,
+        contentBase: path.join(__dirname, 'dist'),
     }
 }
