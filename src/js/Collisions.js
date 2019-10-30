@@ -22,11 +22,11 @@ function getCountCollisions(elements, search) {
     let count = search.val();
 
     for(let i = 0; i < count; i++) {
-        let size = Math.ceil(Math.log10(1000));
         let arr = MyArray.createArray(1000, 65000);
+        let length = arr.length;
 
         let best = elements.reduce((acc, elem) => {
-            let hashArr = hashGenerate(arr, size, elem.method);
+            let hashArr = hashGenerate(arr, length, elem.method);
             let num = getCountEqualsHash(hashArr);
 
             return num < acc.num ? { elem, num } : acc;

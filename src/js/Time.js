@@ -1,7 +1,6 @@
 const MyArray = require('./Array');
 
 const searchElements = require('./Alghoritms').searchElements;
-const hashGenerate = require('./Alghoritms').hashGenerate;
 
 function getTimeSearchMethods(elements, best) {
     let size = Math.ceil(Math.log10(10000));

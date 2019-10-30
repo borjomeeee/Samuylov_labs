@@ -1,3 +1,7 @@
+function getLengthNumber(value) {
+    return Math.floor(Math.log10(value)) + 1;
+}
+
 function hashGenerate(arr, size, cb) {
     let values = [];
 
@@ -11,24 +15,29 @@ function hashGenerate(arr, size, cb) {
 }
 
 function divisionMethod(el, size) {
-    return Math.floor(el % ((10 ** size) + 1)) + 1;
+    let div = 10 ** (getLengthNumber(size) - 1);
+
+    return Math.floor((el % div) + 1) + 1;
 }
 
 function abcpowMethod(el, size) {
-    const numRes = size;
+    const numRes = getLengthNumber(size) - 1;
 
     let num = el ** 2;
-    let numLength = Math.floor(Math.log10(num)) + 1;
+    let numLength = getLengthNumber(num);
 
     if(numLength <= numRes) return num;
 
     let startNum = Math.floor((numLength - numRes) / 2);
+
     let resAdress = Math.floor(num % (10 ** (numLength - startNum)));
 
-    let resAdressLength = Math.floor(Math.log10(resAdress)) + 1;
+    let resAdressLength = getLengthNumber(resAdress);
     resAdress /= 10 ** (resAdressLength - numRes);
 
-    return Math.floor(resAdress);
+    return size % 10 == 0 ? 
+        Math.floor(resAdress) : 
+        Math.floor(resAdress * (size / (10 ** getLengthNumber(size))));
 }
 
 function furlMethod(el, size) {
@@ -36,7 +45,7 @@ function furlMethod(el, size) {
     let resAdress = 0;
     let value = el;
 
-    let div = 10 ** size;
+    let div = size;
 
     while (value != 0) {
         resAdress += value % div;
@@ -48,12 +57,11 @@ function furlMethod(el, size) {
 }
 
 function multiplyMethod(el, size) {
-    let length = size;
+    let m = size;
 
-    const A = 0.6180339887;
-    const m = 10 ** length;
+    const A = (Math.pow(5, 0.5) - 1) / 2;
 
-    let resAdress = A * el;
+    let resAdress = A * el; 
 
     return Math.floor((resAdress % 1) * m);
 }
