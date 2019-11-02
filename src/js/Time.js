@@ -3,13 +3,13 @@ const MyArray = require('./Array');
 const searchElements = require('./Alghoritms').searchElements;
 
 function getTimeSearchMethods(elements, best) {
-    let size = Math.ceil(Math.log10(10000));
     const arr = MyArray.createArray(10000, 10000);
+    let length = arr.length;
 
     elements.forEach(elem => {
-        let hashArr = elem.create(arr, size, best.method);
+        let hashArr = elem.create(arr, length, best.method);
 
-        let time = searchElements(arr, size, best.method, hashArr, elem.search);
+        let time = searchElements(arr, length, best.method, hashArr, elem.search);
         elem.time = time;
     });
 }

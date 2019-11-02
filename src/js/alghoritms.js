@@ -119,16 +119,15 @@ function searchElements(arr, size, best, hashArr, cb) {
 }
 
 function openAdressSearch(arr, size, hashArr, cb) {
+    console.log(arr, hashArr);
     arr.forEach(elem => {
         let adress = cb(elem, size);
 
-        if(hashArr[adress] != elem) {
-            while(hashArr[adress] != elem) {
-                adress++;
+        while(hashArr[adress] != elem) {
+            adress++;
 
-                if(adress == arr.length)
-                    adress = 0;
-            }
+            if(adress == arr.length)
+                adress = 0;
         }
     });
 }
