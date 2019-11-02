@@ -73,12 +73,14 @@ function openAdressCreate(arr, size, cb) {
         let adress = cb(elem, size);
 
         if(hashArr[adress] != undefined) {
-            while(++adress != arr.length) {
-                if(hashArr[adress]){
+            let startAdress = adress;
 
-                }
-                else {
-                    hashArr.push(elem);
+            while(++startAdress != adress) {
+                if(startAdress == arr.length)
+                    startAdress = 0;
+
+                if(hashArr[startAdress] == undefined) {
+                    hashArr[startAdress] = elem;
                     break;
                 }
             }
@@ -121,8 +123,11 @@ function openAdressSearch(arr, size, hashArr, cb) {
         let adress = cb(elem, size);
 
         if(hashArr[adress] != elem) {
-            while(adress != hashArr.length) {
+            while(hashArr[adress] != elem) {
                 adress++;
+
+                if(adress == arr.length)
+                    adress = 0;
             }
         }
     });
